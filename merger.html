@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>The Merger WebPage</title>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.4/dist/umd/popper.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+</head>
+
+<body>
+    <header>
+        <h1 class="bg-danger"
+            style="font-family: 'Times New Roman', Times, serif; text-align: center; margin-left: 150px; margin-right: 150px; margin-top: 50px; ">
+            Greeshma Guduru Builds a Merger</h1>
+    </header>
+    <div class="container mt-5"
+        style="background-color:aliceblue; margin-left: 150px; margin-right: 150px;">
+        <div class="form-group" style="text-align: center;">
+            <input type="text" class="form-control" id="inputText" placeholder="Enter text">
+        </div>
+        <button class="btn btn-secondary" id="addEnd">Add end</button>
+        <button class="btn btn-success" id="addFront">Add front</button>
+        <button class="btn btn-primary" id="remove">Remove</button>
+        <div class="list-group mt-3" id="container">
+        <div class="list-group-item merger" style="background-color:cadetblue; text-align: center;">Row Item1</div>
+        </div>
+    </div>
+
+    <script>
+        const addEndButton = document.getElementById("addEnd");
+        const addFrontButton = document.getElementById("addFront");
+        const removeButton = document.getElementById("remove");
+        const inputText = document.getElementById("inputText");
+        const container = document.getElementById("container");
+
+        addEndButton.onclick = function centerText() {
+            const newValue = inputText.value;
+            if (newValue !== "") {
+                const newElement = document.createElement("div");
+                newElement.classList.add("list-group-item", "merger");
+                newElement.innerHTML = newValue;
+                container.appendChild(newElement);
+                inputText.value = "";
+                newElement.style.textAlign = "center";
+            }
+        };
+
+        removeButton.onclick = function () {
+            const mergerItems = document.getElementsByClassName("merger");
+            const length = mergerItems.length;
+            if (length > 0) {
+                const middleIndex = Math.floor(length / 2);
+                container.removeChild(mergerItems[middleIndex]);
+            }
+        };
+
+        addFrontButton.onclick = function centerText() {
+            const newValue = inputText.value;
+            if (newValue !== "") {
+                const newElement = document.createElement("div");
+                newElement.classList.add("list-group-item", "merger");
+                newElement.innerHTML = newValue;
+                container.insertBefore(newElement, container.firstChild);
+                inputText.value = "";
+                newElement.style.textAlign = "center";
+
+            }
+        };
+    </script>
+</body>
+
+</html>
