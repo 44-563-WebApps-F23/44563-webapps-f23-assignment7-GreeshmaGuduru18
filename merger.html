@@ -17,16 +17,18 @@
             style="font-family: 'Times New Roman', Times, serif; text-align: center; margin-left: 150px; margin-right: 150px; margin-top: 50px; ">
             Greeshma Guduru Builds a Merger</h1>
     </header>
-    <div class="container mt-5"
-        style="background-color:aliceblue; margin-left: 150px; margin-right: 150px;">
+    <div class="container mt-5" style="background-color:aliceblue; margin-left: 150px; margin-right: 150px;">
         <div class="form-group" style="text-align: center;">
             <input type="text" class="form-control" id="inputText" placeholder="Enter text">
         </div>
         <button class="btn btn-secondary" id="addEnd">Add end</button>
         <button class="btn btn-success" id="addFront">Add front</button>
         <button class="btn btn-primary" id="remove">Remove</button>
+        <button class="btn btn-primary" onclick="swapElements()">swap</button>
+
         <div class="list-group mt-3" id="container">
-        <div class="list-group-item merger" style="background-color:cadetblue; text-align: center;">Row Item1</div>
+            <div class="list-group-item merger" style="background-color:cadetblue; text-align: center;">
+                Row Item1</div>
         </div>
     </div>
 
@@ -70,6 +72,23 @@
 
             }
         };
+        function swapElements() {
+            const elements = document.querySelectorAll('.merger');
+            const index1 = Math.floor(Math.random() * elements.length);
+            let index2 = Math.floor(Math.random() * elements.length);
+
+            while (index2 === index1) {
+                index2 = Math.floor(Math.random() * elements.length);
+            }
+
+            const parent = elements[0].parentNode;
+            const tempNode = document.createElement('div');
+
+            parent.insertBefore(tempNode, elements[index1]);
+            parent.insertBefore(elements[index1], elements[index2 + 1]);
+            parent.insertBefore(elements[index2], tempNode);
+            parent.removeChild(tempNode);
+        }
     </script>
 </body>
 

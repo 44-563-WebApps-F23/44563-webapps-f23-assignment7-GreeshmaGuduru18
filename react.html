@@ -17,12 +17,18 @@
         <h1>Greeshma Guduru Speed Check</h1>
     </header>
     <div class="container mt-4 text-white" style="text-align: center;">
-        
-            <div id="target" class="alert bg-warning" style="text-align: center; border-style: outset;  border-color:crimson; margin-left: 200px; margin-right: 200px;";>Your time: </div>
-            <div id="counter" class="alert bg-primary" style="height: 50px; margin-left: 250px; border-color:crimson; margin-right: 250px;">Count: </div>
-            <button id="startTimer" class="alert bg-danger" style="height: 50px; border-style: double; border-color:crimson;">Start Timer</button><br>
-            <button id="react" class="alert bg-success" style="height: 50px; border-style: outset; border-color:crimson; " onclick="recordTime()">React</button>
-        
+
+        <div id="target" class="alert bg-warning"
+            style="text-align: center; border-style: outset;  border-color:crimson; margin-left: 200px; margin-right: 200px;"
+            ;>Your time: </div>
+        <div id="counter" class="alert bg-primary"
+            style="height: 50px; margin-left: 250px; border-color:crimson; margin-right: 250px;">Count: </div>
+        <button id="startTimer" class="alert bg-danger"
+            style="height: 50px; border-style: double; border-color:crimson;">Start Timer</button><br>
+        <button id="react" class="alert bg-success" style="height: 50px; border-style: outset; border-color:crimson; "
+            onclick="recordTime()">React</button>
+        <button class="btn btn-warning btn-new-game" class="alert bg-danger" onclick="random()">Random</button>
+
     </div>
 
     <script>
@@ -54,6 +60,47 @@
         }
 
         document.getElementById("startTimer").onclick = startTime;
+        function swapElements() {
+            const elements = document.querySelectorAll('.merger');
+            const index1 = Math.floor(Math.random() * elements.length);
+            let index2 = Math.floor(Math.random() * elements.length);
+
+            while (index2 === index1) {
+                index2 = Math.floor(Math.random() * elements.length);
+            }
+
+            const parent = elements[0].parentNode;
+            const tempNode = document.createElement('div');
+
+            parent.insertBefore(tempNode, elements[index1]);
+            parent.insertBefore(elements[index1], elements[index2 + 1]);
+            parent.insertBefore(elements[index2], tempNode);
+            parent.removeChild(tempNode);
+        }
+        function random() {
+            reactTime = undefined;
+            document.getElementById('target').innerText = 'Your time: ';
+            document.getElementById('counter').innerText = 'Count: ';
+            let countdownTime = Math.floor(Math.random() * (10 - 2 + 1)) + 2;
+            let tooSlowTimeout = setTimeout(() => {
+                document.getElementById('target').innerText = 'Too Slow';
+            }, countdownTime * 1000);
+            for (let i = countdownTime; i >= 0; i--) {
+                setTimeout(() => {
+                    document.getElementById('counter').innerText = `Count: ${i}`;
+                }, (countdownTime - i) * 1000);
+            }
+            setTimeout(() => {
+                clearTimeout(tooSlowTimeout);
+                if (reactTime === undefined) {
+                    document.getElementById('target').innerText = 'Too Slow';
+                } else {
+                    let endTime = Date.now();
+                    let elapsedTime = endTime - reactTime;
+                    document.getElementById('target').innerText = `Your time: ${elapsedTime} milliseconds`;
+                }
+            }, countdownTime * 1000);
+        }
     </script>
 </body>
 
